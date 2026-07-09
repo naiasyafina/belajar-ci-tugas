@@ -57,31 +57,64 @@ History Transaksi Pembelian <strong><?= $username ?></strong>
                         <h5 class="modal-title">Detail Transaksi #<?= $item['id'] ?></h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body"> 
-                        <?php if (!empty($products[$item['id']])) : ?>
-                            <?php foreach ($products[$item['id']] as $index2 => $item2) : ?>
-                                <?= $index2 + 1 . ")" ?>
-                                
-                                <?php
-                                $imagePath = FCPATH . 'img/' . $item2['foto'];
+                    <div class="modal-body">
 
-                                if (!empty($item2['foto']) && file_exists($imagePath)) :
-                                ?>
-                                    <div class="my-2">
-                                        <img src="<?= base_url('img/' . $item2['foto']) ?>" width="100" class="img-thumbnail">
-                                    </div>
-                                <?php endif; ?>
+    <?php if (!empty($products[$item['id']])) : ?>
 
-                                <strong><?= $item2['nama'] ?></strong>
-                                <?= number_to_currency($item2['harga'], 'IDR') ?>
-                                <br>
-                                <?= "(" . $item2['jumlah'] . " pcs)" ?><br>
-                                <?= number_to_currency($item2['subtotal_harga'], 'IDR') ?>
-                                <hr>
-                            <?php endforeach; ?>
-                        <?php endif; ?>
-                        Ongkir <?= number_to_currency($item['ongkir'], 'IDR') ?>
-                    </div>
+        <?php foreach ($products[$item['id']] as $index2 => $item2) : ?>
+
+            <?php
+            $hargaDiskon = max(0, $item2['harga'] - $item2['diskon']);
+            ?>
+
+            <div class="mb-4">
+
+                <div class="mb-2">
+                    <?= ($index2 + 1) ?>)
+                </div>
+
+                <?php
+                $imagePath = FCPATH . 'img/' . $item2['foto'];
+                if (!empty($item2['foto']) && file_exists($imagePath)) :
+                ?>
+                    <img src="<?= base_url('img/' . $item2['foto']) ?>"
+                        width="120"
+                        class="img-thumbnail mb-2">
+                <?php endif; ?>
+
+                <div>
+                    <strong><?= $item2['nama'] ?></strong><br>
+
+                    <?php if ($item2['diskon'] > 0): ?>
+                        <del class="text-danger">
+                            <?= number_to_currency($item2['harga'], 'IDR') ?>
+                        </del>
+                        <br>
+                    <?php endif; ?>
+
+                    <?= number_to_currency($hargaDiskon, 'IDR') ?>
+                    <br>
+
+                    (<?= $item2['jumlah'] ?> pcs)
+                    <br>
+
+                    <?= number_to_currency($item2['subtotal_harga'], 'IDR') ?>
+                </div>
+
+            </div>
+
+            <hr>
+
+        <?php endforeach; ?>
+
+    <?php endif; ?>
+
+    <div class="mt-3">
+        <strong>Ongkir :</strong>
+        <?= number_to_currency($item['ongkir'], 'IDR') ?>
+    </div>
+
+</div>
                 </div>
             </div>
         </div>

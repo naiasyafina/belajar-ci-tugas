@@ -25,6 +25,19 @@
                   <span>Produk</span>
               </a>
           </li><!-- End Produk Nav --> 
+          <li class="nav-item">
+                        <a class="nav-link <?= (uri_string() == 'discount') ? "" : "collapsed" ?>" href="<?= base_url('discount') ?>">
+                            <i class="bi bi-ticket-perforated"></i>
+                            <span>Diskon</span>
+                        </a>
+                </li>
+                <li class="nav-item">
+            <a class="nav-link <?= (uri_string() == 'pembelian') ? "" : "collapsed" ?>"
+            href="<?= base_url('pembelian') ?>">
+                <i class="bi bi-receipt"></i>
+                <span>Pembelian</span>
+            </a>
+          </li>
         <?php
         }
         ?>

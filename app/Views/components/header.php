@@ -1,3 +1,11 @@
+<?php
+
+use App\Models\DiscountModel;
+
+$discountModel = new DiscountModel();
+$discount = $discountModel->getTodayDiscount();
+
+?>
 <!-- ======= Header ======= -->
   <header id="header" class="header fixed-top d-flex align-items-center">
 
@@ -15,6 +23,15 @@
         <button type="submit" title="Search"><i class="bi bi-search"></i></button>
       </form>
     </div><!-- End Search Bar -->
+    <?php if ($discount): ?>
+<div class="ms-3">
+    <span class="badge bg-success px-3 py-2">
+        Hari ini ada diskon
+        Rp <?= number_format($discount['nominal'], 0, ',', '.') ?>
+        per item
+    </span>
+</div>
+<?php endif; ?>
 
     <nav class="header-nav ms-auto">
       <ul class="d-flex align-items-center">
